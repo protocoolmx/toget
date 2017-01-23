@@ -1,0 +1,31 @@
+{
+  "name": "toget",
+  "version": "0.1.0",
+  "description": "Simple Node.js HTTP client to make requests easy.",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha test/integration/**/*.test.js"
+  },
+  "engines": {
+    "node": "4.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/protocoolmx/toget.git"
+  },
+  "keywords": [
+    "rest",
+    "http",
+    "client",
+    "request"
+  ],
+  "author": "Protocool",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/protocoolmx/toget/issues"
+  },
+  "homepage": "https://github.com/protocoolmx/toget#readme",
+  "devDependencies": {
+    "mocha": "~3.2.0"
+  }
+}
