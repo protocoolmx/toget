@@ -26,9 +26,11 @@
   },
   "homepage": "https://github.com/protocoolmx/toget#readme",
   "devDependencies": {
+    "json-server": "~0.9.4",
     "mocha": "~3.2.0"
   },
   "dependencies": {
+    "path-to-regexp": "~1.7.0",
     "request": "~2.79.0"
   }
 }
