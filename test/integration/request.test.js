@@ -21,7 +21,7 @@ describe('Request', function () {
     return request
       .post('/user')
       .body(postBody)
-      .json(true)
+      .json()
       .then((response) => {
         assert.ok(response.headers['content-type']);
         assert.ok(response.headers['content-type'].search(/json/));
@@ -36,7 +36,7 @@ describe('Request', function () {
 
     return request
       .get('/user')
-      .json(true)
+      .json()
       .query({name: 'FooBar'})
       .then((response) => {
         assert.deepEqual(postBody, response.body[0]);
@@ -50,7 +50,7 @@ describe('Request', function () {
 
     return request
       .put('/user/:id', { id: 1 })
-      .json(true)
+      .json()
       .body({age: 20})
       .then((response) => {
         assert.equal(response.body.age, 20);
@@ -64,7 +64,7 @@ describe('Request', function () {
 
     return request
       .get('/user/3')
-      .json(true)
+      .json()
       .then((response) => {
         assert.ifError(response.error);
         assert.equal(response.statusCode, 200);
@@ -83,7 +83,7 @@ describe('Request', function () {
 
     return request
       .delete('/user/:id', { id: 1 })
-      .json(true)
+      .json()
       .then((response) => {
         assert.ifError(response.error);
         assert.ok(response.ok);
@@ -97,7 +97,7 @@ describe('Request', function () {
 
     return request
       .get('/user/-1')
-      .json(true)
+      .json()
       .then((response) => {
         assert.equal(response.statusCode, 404);
         assert.equal(response.type, 4);

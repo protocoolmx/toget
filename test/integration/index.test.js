@@ -15,7 +15,7 @@ describe('toget', function () {
 
   it('should get array using default get', function () {
     return request('/user')
-    .json(true)
+    .json()
     .then((response) => {
       assert.ok(response.headers['content-type']);
       assert.ok(response.headers['content-type'].search(/json/));
@@ -27,7 +27,7 @@ describe('toget', function () {
 
   it('should get object using default get', function () {
     return request('/user/:id', { id: 1 })
-    .json(true)
+    .json()
     .then((response) => {
       assert.deepEqual(response.body, db.user[0]);
 
@@ -46,7 +46,7 @@ describe('toget', function () {
 
     let req = request()
                 .put('/user/:id', { id: 123 })
-                .json(true)
+                .json()
                 .body({ age: 40 })
                 .query({ key: 'value'})
                 .headers({ authorization: 'w6et7iyuhljhbgvjchf' });
