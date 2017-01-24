@@ -1,7 +1,7 @@
 {
   "name": "toget",
   "version": "0.1.0",
-  "description": "Simple Node.js HTTP client to make requests easy.",
+  "description": "Simple Node.js RESTful API builder to make requests easy.",
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha test/setup.js test/integration/**/*.test.js"
