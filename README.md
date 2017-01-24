@@ -33,7 +33,7 @@ request('/user/:id', { id: 1 })
 `Request` is the class in charge to build and execute requests.
 
 ```javascript
-let Request = require('toget/lib/request');
+const Request = require('toget/lib/request');
 ```
 
 #### constructor(base)
@@ -132,24 +132,143 @@ request.get('/user').toOptions(); // { method: 'GET', url: 'http://localhost:300
 
 #### .exec(cb)
 
-Shortcut for `request(req.get('/user').toOptions(), cb)`.
+Shortcut for `request(req.get('/user').toOptions(), cb)` to use as a normal
+request call. This method returns [request](https://github.com/request/request)
+instance.
 
 + `cb` (Function) - Callback as specified in [request](https://github.com/request/request) docs; request(options, **callback**).
 
 ```javascript
-request.get('/user').exec((err, response, body) => {
+request.get('/doodle.png').exec((err, response, body) => {
   if (err) {
     console.error(err);
     return;
   }
 
   // ...
-});
+})
+.pipe(fs.createWriteStream('doodle.png'));
 ```
 
 **Note:** The callback here is handled by request so this means `response` is
 not the `response` you would expect returned by a promise but the
 `response.rawResponse` instead.
+
+## Response API
+
+`Response` is the class in charge to handle response from request made.
+
+```javascript
+const Response = require('toget/lib/response');
+```
+
+#### constructor(rawResponse)
+
+Creates `Response` instance.
+
++ `rawResponse` (Object) - Response Object received in request callback.
+
+```javascript
+let request = new Response(rawResponse);
+```
+
+#### .body `Buffer|ReadStream|String`
+
+Response body extracted from `rawResponse.body`.
+
+```javascript
+response.body
+```
+
+#### .headers `Object`
+
+Response headers extracted from `rawResponse.headers`.
+
+```javascript
+response.headers
+```
+
+#### .statusCode `Number`
+
+Response status code extracted from `rawResponse.statusCode`.
+
+```javascript
+response.statusCode
+```
+
+#### .url `String`
+
+URL used in request.
+
+```javascript
+response.url
+```
+
+Method used in request (GET, POST, PUT, DELETE).
+
+#### .method `String`
+
+```javascript
+response.method
+```
+
+#### .status `Object`
+
+Response status code dictionary available as string-boolean as defined in [statusCodes.json](lib/statusCodes.json)
+
+```javascript
+response.status
+```
+
+#### .type `Number`
+
+Response status range type code (1, 2, 3, 4, 5, etc).
+
+```javascript
+response.type
+```
+
+#### .info `Boolean`
+
+Response status code range from 100 to 199.
+
+```javascript
+response.info
+```
+
+#### .ok `Boolean`
+
+Response status code range from 200 to 299.
+
+```javascript
+response.ok
+```
+
+#### .clientError `Boolean`
+
+Response status code range from 400 to 499.
+
+```javascript
+response.clientError
+```
+
+#### .serverError `Boolean`
+
+Response status code range from 500 to 599.
+
+```javascript
+response.serverError
+```
+
+#### .error `Error|Object|Boolean`
+
+Response error, false if no error or Error|Body instance otherwise.
+
+```javascript
+if (response.error) {
+  throw response.error;
+}
+```
 
 ## test
 
