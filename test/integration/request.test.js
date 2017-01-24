@@ -121,4 +121,30 @@ describe('Request', function () {
     .on('error', done)
     .pipe(fs.createWriteStream('test/fixtures/image_downloaded.png'));
   });
+
+  describe('#exec()', function () {
+
+    it('should request stream image with exec and callback', function (done) {
+      let request = new Request('http://localhost:3000').get('/image');
+
+      request.exec((err, response, body) => {
+        return done();
+      })
+      .on('response', (response) => {
+        assert.equal(response.headers['content-type'], 'image/png');
+      })
+      .on('error', done);
+    });
+
+    it('should request stream image with exec', function (done) {
+      let request = new Request('http://localhost:3000').get('/image');
+
+      request.exec()
+      .on('response', (response) => {
+        assert.equal(response.headers['content-type'], 'image/png');
+      })
+      .on('end', done)
+      .on('error', done);
+    });
+  });
 });
