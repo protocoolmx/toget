@@ -4,7 +4,7 @@
   "description": "Simple Node.js HTTP client to make requests easy.",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha test/integration/**/*.test.js"
+    "test": "./node_modules/mocha/bin/mocha test/setup.js test/integration/**/*.test.js"
   },
   "engines": {
     "node": "4.x"
