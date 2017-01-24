@@ -1,5 +1,7 @@
 # toget
 
+[![npm version](https://badge.fury.io/js/toget.svg)](https://badge.fury.io/js/toget) [![Build Status](https://travis-ci.org/protocoolmx/toget.svg?branch=master)](https://travis-ci.org/protocoolmx/toget)
+
 Simple Node.js RESTful API builder for [request](https://github.com/request/request).
 
 ## Install
