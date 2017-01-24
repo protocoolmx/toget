@@ -1,6 +1,6 @@
 {
   "name": "toget",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Simple Node.js RESTful API builder to make requests easy.",
   "main": "index.js",
   "scripts": {
