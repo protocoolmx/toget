@@ -35,3 +35,7 @@ jspm_packages
 
 # Optional REPL history
 .node_repl_history
+
+# DB Data Testing
+test/fixtures/db.json
+test/fixtures/image_downloaded.png
