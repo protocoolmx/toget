@@ -137,7 +137,7 @@ describe('Request', function () {
       });
   });
 
-   it('should get image as non-buffer using request.encoding(\'utf-8\')', function () {
+   it('should get image as non-buffer using request.encoding("utf-8")', function () {
 
     let request = new Request('http://localhost:3000');
 
