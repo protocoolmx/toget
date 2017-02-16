@@ -12,7 +12,7 @@ $ npm install toget --save
 
 ## Overview
 
-**toget** makes available through his API the most used properties of [request](https://github.com/request/request).
+**toget** makes available through its API the most used properties of [request](https://github.com/request/request).
 
 ```javascript
 const toget = require('toget');
