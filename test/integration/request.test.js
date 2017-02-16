@@ -122,6 +122,36 @@ describe('Request', function () {
     .pipe(fs.createWriteStream('test/fixtures/image_downloaded.png'));
   });
 
+  it('should get image as buffer using request.encoding(null)', function () {
+
+    let request = new Request('http://localhost:3000');
+
+    return request
+      .get('/image')
+      .encoding(null)      
+      .then((response) => {       
+
+        assert.equal(response.body instanceof Buffer , true);
+
+        return response;
+      });
+  });
+
+   it('should get image as non-buffer using request.encoding("utf-8")', function () {
+
+    let request = new Request('http://localhost:3000');
+
+    return request
+      .get('/image')
+      .encoding('utf-8')      
+      .then((response) => {       
+
+        assert.equal(response.body instanceof Buffer , false);
+
+        return response;
+      });
+  });
+
   describe('#exec()', function () {
 
     it('should request stream image with exec and callback', function (done) {
