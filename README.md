@@ -116,16 +116,11 @@ Set encoding code to the response body.
 
 + `value` (Object) - Represent the enconding code.
 
-**Note:** if value is undefined means this is utf-8 by default.
+**Note:** If value is undefined means this is 'utf-8' by default. In the case for null is used as encoding code, 
+the body is returned as a Buffer.
 
 ```javascript
-request
-  .get('/user/:id', { id: 1 })
-  .encoding('utf-8')
-  .then((response) => {
-    console.log(response.body);
-  })
-  .catch(console.error);
+request.encoding('utf-8')
 ```
 
 #### .toPromise()
