@@ -110,6 +110,24 @@ Entity body for POST and PUT requests.
 request.body({ firstName: 'Foo', lastName: 'Bar', age: 25 })
 ```
 
+#### .encoding(value)
+
+Set encoding code to the response body.
+
++ `value` (Object) - Represent the enconding code.
+
+**Note:** if value is undefined means this is utf-8 by default.
+
+```javascript
+request
+  .get('/user/:id', { id: 1 })
+  .encoding('utf-8')
+  .then((response) => {
+    console.log(response.body);
+  })
+  .catch(console.error);
+```
+
 #### .toPromise()
 
 Make request and returns Promise instance to handle response and possible errors.
@@ -272,7 +290,7 @@ if (response.error) {
 }
 ```
 
-## test
+## Test
 
 ```
 $ npm test
