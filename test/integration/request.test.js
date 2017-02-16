@@ -122,7 +122,7 @@ describe('Request', function () {
     .pipe(fs.createWriteStream('test/fixtures/image_downloaded.png'));
   });
 
-  it('should get buffer image using request.encoding(null) with request', function () {
+  it('should get image as buffer using request.encoding(null)', function () {
 
     let request = new Request('http://localhost:3000');
 
@@ -137,7 +137,7 @@ describe('Request', function () {
       });
   });
 
-   it('should get not a buffer image using request.encoding("utf-8") with request', function () {
+   it('should get image as non-buffer using request.encoding(\'utf-8\')', function () {
 
     let request = new Request('http://localhost:3000');
 
