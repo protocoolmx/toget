@@ -116,7 +116,7 @@ Set encoding code to the response body.
 
 + `value` (Object) - Represent the enconding code.
 
-**Note:** If value is undefined means this is 'utf-8' by default. In the case for null is used as encoding code, 
+**Note:** If value is `undefined` means this is 'utf-8' by default. In the case for `null` is used as encoding code, 
 the body is returned as a Buffer.
 
 ```javascript
