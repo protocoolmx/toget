@@ -20,6 +20,14 @@ before('setup fake server', function (done) {
     fs.createReadStream('test/fixtures/image.png').pipe(res);
   });
 
+  server.get('/timeout', function (req, res) {
+    setTimeout(function () {
+      res.statusCode = 200;
+      res.setHeader('Content-Type', 'text/plain');
+      res.end('NO_TIMEOUT');
+    }, 2000);
+  });
+
   server.use(router);
   server.listen(3000, () => {
     return done();
