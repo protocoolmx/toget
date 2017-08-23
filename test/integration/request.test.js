@@ -152,6 +152,37 @@ describe('Request', function () {
       });
   });
 
+  describe('#timeout()', function () {
+
+    it('should timeout request', function () {
+      this.timeout(3000);
+      let request = new Request('http://localhost:3000');
+      
+      return request
+        .get('/timeout')
+        .timeout(1000)
+        .catch((error) => {
+          assert.equal(error.code, 'ESOCKETTIMEDOUT');
+
+          return error;
+        });
+    });
+
+    it('should NOT timeout request', function () {
+      this.timeout(3000);
+      let request = new Request('http://localhost:3000');
+      
+      return request
+        .get('/timeout')
+        .timeout(2500)
+        .then((response) => {
+          assert.equal(response.body, 'NO_TIMEOUT');
+
+          return response;
+        });
+    });
+  });
+
   describe('#exec()', function () {
 
     it('should request stream image with exec and callback', function (done) {
