@@ -98,6 +98,15 @@ server and decode supported content encodings in the response.
 request.gzip()
 ```
 
+#### .timeout(value)
+
+Integer containing the number of milliseconds to wait for a server to send response
+before aborting the request.
+
+```javascript
+request.timeout(1500)
+```
+
 #### .body(data)
 
 Entity body for POST and PUT requests.
