@@ -1,8 +1,14 @@
 # Change Log
 
+### v0.4.0
+
+ _2017-09-11_ [v0.3.0...v0.4.0](https://github.com/protocoolmx/toget/compare/v0.3.0...v0.4.0)
+
+* [NEW OPTION] `jar` options implemented. [pull #11](https://github.com/protocoolmx/toget/pull/11).
+
 ### v0.3.0
 
- _2017-08-22_ [v0.2.0...v0.3.0](https://github.com/protocoolmx/toget/compare/v0.1.2...v0.2.0)
+ _2017-08-22_ [v0.2.0...v0.3.0](https://github.com/protocoolmx/toget/compare/v0.2.0...v0.3.0)
 
 * [NEW OPTION] `timeout` option for requests added. [pull #8](https://github.com/protocoolmx/toget/pull/8).
 
