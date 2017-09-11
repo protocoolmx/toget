@@ -183,6 +183,27 @@ describe('Request', function () {
     });
   });
 
+  describe.only('#jar()', function () {
+    it('should send and get cookies', function () {
+      let request = new Request('http://localhost:3000');
+
+      const j = request.request.jar();
+      const cookie = request.request.cookie('key1=value1');
+      const url = 'http://localhost:3000';
+      j.setCookie(cookie, url);
+
+      return request
+        .get('/cookie')
+        .jar(j)
+        .then((response) => {
+          assert.equal(response.body, 'key1=value1')
+          assert.ok(j.getCookieString(url).includes('key2=value2'));
+
+          return response;
+        });
+    });
+  });
+
   describe('#exec()', function () {
 
     it('should request stream image with exec and callback', function (done) {
