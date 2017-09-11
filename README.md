@@ -98,6 +98,19 @@ server and decode supported content encodings in the response.
 request.gzip()
 ```
 
+#### .jar(value)
+
+Define your custom cookie jar.
+
+```javascript
+const url = 'http://localhost';
+const req = new Request(url);
+const j = req.request.jar();
+j.setCookie(req.request.cookie('key1=value1'), url);
+
+request.jar(j)
+```
+
 #### .timeout(value)
 
 Integer containing the number of milliseconds to wait for a server to send response

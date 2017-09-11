@@ -28,6 +28,13 @@ before('setup fake server', function (done) {
     }, 2000);
   });
 
+  server.get('/cookie', function (req, res) {
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'text/plain');
+    res.cookie('key2', 'value2');
+    res.end(req.headers.cookie);
+  });
+
   server.use(router);
   server.listen(3000, () => {
     return done();
