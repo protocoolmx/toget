@@ -8,7 +8,10 @@ Simple Node.js RESTful API builder for [request](https://github.com/request/requ
 
 ```
 $ npm install toget --save
+$ npm install request --save
 ```
+
+**Note:** [request](https://github.com/request/request) 2+ required.
 
 ## Overview
 
@@ -30,8 +33,6 @@ request('/user/:id', { id: 1 })
 });
 ```
 
-**Note:** [request](https://github.com/request/request) 2+ required.
-
 ## Request API
 
 `Request` is the class in charge to build and execute requests.
@@ -48,6 +49,9 @@ Creates `Request` instance.
 
 ```javascript
 let request = new Request('http://localhost:3000');
+
+// Set request module for API to work.
+request.upon(require('request'));
 ```
 
 #### .get(path, params)
