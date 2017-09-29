@@ -4,7 +4,7 @@
 
  _2017-09-29_ [v0.4.0...v0.5.0](https://github.com/protocoolmx/toget/compare/v0.4.0...v0.5.0)
 
-* [API BREAK CHANGE] `request` depedency is taken externally. [pull #15](https://github.com/protocoolmx/toget/pull/11).
+* [API BREAK CHANGE] `request` depedency is taken externally. [pull #15](https://github.com/protocoolmx/toget/pull/15).
 * [CHANGE] eslint implemented [pull #13](https://github.com/protocoolmx/toget/pull/13).
 
 ### v0.4.0
