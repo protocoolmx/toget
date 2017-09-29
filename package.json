@@ -4,7 +4,8 @@
   "description": "Simple Node.js RESTful API builder to make requests easy.",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha test/setup.js test/integration/**/*.test.js"
+    "test": "./node_modules/mocha/bin/mocha test/setup.js test/integration/**/*.test.js",
+    "test:eslint": "./node_modules/mocha/bin/mocha test/eslint/eslint.test.js"
   },
   "engines": {
     "node": ">=4"
@@ -26,11 +27,15 @@
   },
   "homepage": "https://github.com/protocoolmx/toget#readme",
   "devDependencies": {
-    "json-server": "~0.9.4",
-    "mocha": "~3.2.0"
+    "json-server": "0.12.x",
+    "mocha": "3.5.x",
+    "mocha-eslint": "3.x",
+    "eslint": "3.x",
+    "eslint-config-airbnb-base": "11.x",
+    "eslint-plugin-import": "2.x"
   },
   "dependencies": {
-    "path-to-regexp": "~1.7.0",
-    "request": "2.x"
+    "path-to-regexp": "2.0.x",
+    "request": "2.83.x"
   }
 }

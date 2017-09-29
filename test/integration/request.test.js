@@ -1,22 +1,14 @@
 'use strict';
 
 const assert = require('assert');
-const tutils = require('../fixtures/tutils');
 const Request = require('../../lib/request');
-const request = require('request');
 const fs = require('fs');
 
 describe('Request', function () {
-
-  let db;
-  let postBody = { id: 3, name: 'FooBar', age: 35 };
-
-  before('get server db', function () {
-    return tutils.db().then(data => (db = data));
-  });
+  const postBody = { id: 3, name: 'FooBar', age: 35 };
 
   it('should post new user', function () {
-    let request = new Request('http://localhost:3000');
+    const request = new Request('http://localhost:3000');
 
     return request
       .post('/user')
@@ -32,12 +24,12 @@ describe('Request', function () {
   });
 
   it('should get user by name', function () {
-    let request = new Request('http://localhost:3000');
+    const request = new Request('http://localhost:3000');
 
     return request
       .get('/user')
       .json()
-      .query({name: 'FooBar'})
+      .query({ name: 'FooBar' })
       .then((response) => {
         assert.deepEqual(postBody, response.body[0]);
 
@@ -46,12 +38,12 @@ describe('Request', function () {
   });
 
   it('should update user info', function () {
-    let request = new Request('http://localhost:3000');
+    const request = new Request('http://localhost:3000');
 
     return request
       .put('/user/:id', { id: 1 })
       .json()
-      .body({age: 20})
+      .body({ age: 20 })
       .then((response) => {
         assert.equal(response.body.age, 20);
 
@@ -60,7 +52,7 @@ describe('Request', function () {
   });
 
   it('should get user by id without path parser', function () {
-    let request = new Request('http://localhost:3000');
+    const request = new Request('http://localhost:3000');
 
     return request
       .get('/user/3')
@@ -79,7 +71,7 @@ describe('Request', function () {
   });
 
   it('should delete user by id', function () {
-    let request = new Request('http://localhost:3000');
+    const request = new Request('http://localhost:3000');
 
     return request
       .delete('/user/:id', { id: 1 })
@@ -93,7 +85,7 @@ describe('Request', function () {
   });
 
   it('should return error 404 for user', function () {
-    let request = new Request('http://localhost:3000');
+    const request = new Request('http://localhost:3000');
 
     return request
       .get('/user/-1')
@@ -109,55 +101,50 @@ describe('Request', function () {
   });
 
   it('should get image using request.toOptions() with request', function (done) {
-
-    let options = new Request('http://localhost:3000').get('/image').toOptions();
+    const options = new Request('http://localhost:3000').get('/image').toOptions();
+    const request = require('request'); // eslint-disable-line
 
     request(options)
-    .on('response', function(response) {
-      assert.equal(response.statusCode, 200);
-      assert.equal(response.headers['content-type'], 'image/png');
-    })
-    .on('end', done)
-    .on('error', done)
-    .pipe(fs.createWriteStream('test/fixtures/image_downloaded.png'));
+      .on('response', (response) => {
+        assert.equal(response.statusCode, 200);
+        assert.equal(response.headers['content-type'], 'image/png');
+      })
+      .on('end', done)
+      .on('error', done)
+      .pipe(fs.createWriteStream('test/fixtures/image_downloaded.png'));
   });
 
   it('should get image as buffer using request.encoding(null)', function () {
-
-    let request = new Request('http://localhost:3000');
+    const request = new Request('http://localhost:3000');
 
     return request
       .get('/image')
-      .encoding(null)      
-      .then((response) => {       
-
-        assert.equal(response.body instanceof Buffer , true);
+      .encoding(null)
+      .then((response) => {
+        assert.equal(response.body instanceof Buffer, true);
 
         return response;
       });
   });
 
-   it('should get image as non-buffer using request.encoding("utf-8")', function () {
-
-    let request = new Request('http://localhost:3000');
+  it('should get image as non-buffer using request.encoding("utf-8")', function () {
+    const request = new Request('http://localhost:3000');
 
     return request
       .get('/image')
-      .encoding('utf-8')      
-      .then((response) => {       
-
-        assert.equal(response.body instanceof Buffer , false);
+      .encoding('utf-8')
+      .then((response) => {
+        assert.equal(response.body instanceof Buffer, false);
 
         return response;
       });
   });
 
   describe('#timeout()', function () {
-
     it('should timeout request', function () {
       this.timeout(3000);
-      let request = new Request('http://localhost:3000');
-      
+      const request = new Request('http://localhost:3000');
+
       return request
         .get('/timeout')
         .timeout(1000)
@@ -170,8 +157,8 @@ describe('Request', function () {
 
     it('should NOT timeout request', function () {
       this.timeout(3000);
-      let request = new Request('http://localhost:3000');
-      
+      const request = new Request('http://localhost:3000');
+
       return request
         .get('/timeout')
         .timeout(2500)
@@ -183,9 +170,9 @@ describe('Request', function () {
     });
   });
 
-  describe.only('#jar()', function () {
+  describe('#jar()', function () {
     it('should send and get cookies', function () {
-      let request = new Request('http://localhost:3000');
+      const request = new Request('http://localhost:3000');
 
       const j = request.request.jar();
       const cookie = request.request.cookie('key1=value1');
@@ -196,7 +183,7 @@ describe('Request', function () {
         .get('/cookie')
         .jar(j)
         .then((response) => {
-          assert.equal(response.body, 'key1=value1')
+          assert.equal(response.body, 'key1=value1');
           assert.ok(j.getCookieString(url).includes('key2=value2'));
 
           return response;
@@ -205,28 +192,25 @@ describe('Request', function () {
   });
 
   describe('#exec()', function () {
-
     it('should request stream image with exec and callback', function (done) {
-      let request = new Request('http://localhost:3000').get('/image');
+      const request = new Request('http://localhost:3000').get('/image');
 
-      request.exec((err, response, body) => {
-        return done();
-      })
-      .on('response', (response) => {
-        assert.equal(response.headers['content-type'], 'image/png');
-      })
-      .on('error', done);
+      request.exec(() => done())
+        .on('response', (response) => {
+          assert.equal(response.headers['content-type'], 'image/png');
+        })
+        .on('error', done);
     });
 
     it('should request stream image with exec', function (done) {
-      let request = new Request('http://localhost:3000').get('/image');
+      const request = new Request('http://localhost:3000').get('/image');
 
       request.exec()
-      .on('response', (response) => {
-        assert.equal(response.headers['content-type'], 'image/png');
-      })
-      .on('end', done)
-      .on('error', done);
+        .on('response', (response) => {
+          assert.equal(response.headers['content-type'], 'image/png');
+        })
+        .on('end', done)
+        .on('error', done);
     });
   });
 });

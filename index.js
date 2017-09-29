@@ -2,9 +2,8 @@
 
 const Request = require('./lib/request');
 
-module.exports = function toget (host) {
-
-  return function (path, obj) {
+module.exports = function toget(host) {
+  return (path, obj) => {
     if (path) {
       return new Request(host).get(path, obj);
     }

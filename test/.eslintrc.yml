@@ -1,0 +1,6 @@
+rules:
+  func-names:
+    - error
+    - never
+  prefer-arrow-callback: off
+  no-param-reassign: off
