@@ -15,7 +15,7 @@ $ npm install toget --save
 **toget** makes available through its API the most used properties of [request](https://github.com/request/request).
 
 ```javascript
-const toget = require('toget');
+const toget = require('toget')(require('request'));
 
 // All request made with `request` instance will have
 // `http://domain.com` as base URL.
@@ -30,12 +30,14 @@ request('/user/:id', { id: 1 })
 });
 ```
 
+**Note:** [request](https://github.com/request/request) 2+ required.
+
 ## Request API
 
 `Request` is the class in charge to build and execute requests.
 
 ```javascript
-const Request = require('toget/lib/request');
+const Request = require('toget/lib/Request');
 ```
 
 #### constructor(base)
@@ -196,7 +198,7 @@ not the `response` you would expect returned by a promise but the
 `Response` is the class in charge to handle response from request made.
 
 ```javascript
-const Response = require('toget/lib/response');
+const Response = require('toget/lib/Response');
 ```
 
 #### constructor(rawResponse)
