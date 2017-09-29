@@ -32,10 +32,10 @@
     "mocha-eslint": "3.x",
     "eslint": "3.x",
     "eslint-config-airbnb-base": "11.x",
-    "eslint-plugin-import": "2.x"
+    "eslint-plugin-import": "2.x",
+    "request": "2.83.x"
   },
   "dependencies": {
-    "path-to-regexp": "2.0.x",
-    "request": "2.83.x"
+    "path-to-regexp": "2.0.x"
   }
 }

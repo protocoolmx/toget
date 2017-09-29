@@ -1,7 +1,7 @@
 'use strict';
 
 const assert = require('assert');
-const toget = require('../../index');
+const toget = require('../../index')(require('request'));
 const tutils = require('../fixtures/tutils');
 
 describe('toget', function () {
@@ -18,24 +18,24 @@ describe('toget', function () {
 
   it('should get array using default get', function () {
     return request('/user')
-    .json()
-    .then((response) => {
-      assert.ok(response.headers['content-type']);
-      assert.ok(response.headers['content-type'].search(/json/));
-      assert.ok(Array.isArray(response.body));
+      .json()
+      .then((response) => {
+        assert.ok(response.headers['content-type']);
+        assert.ok(response.headers['content-type'].search(/json/));
+        assert.ok(Array.isArray(response.body));
 
-      return response;
-    });
+        return response;
+      });
   });
 
   it('should get object using default get', function () {
     return request('/user/:id', { id: 1 })
-    .json()
-    .then((response) => {
-      assert.deepEqual(response.body, db.user[0]);
+      .json()
+      .then((response) => {
+        assert.deepEqual(response.body, db.user[0]);
 
-      return response;
-    });
+        return response;
+      });
   });
 
   it('should get request options', function () {
@@ -48,11 +48,11 @@ describe('toget', function () {
     };
 
     const req = request()
-                .put('/user/:id', { id: 123 })
-                .json()
-                .body({ age: 40 })
-                .query({ key: 'value' })
-                .headers({ authorization: 'w6et7iyuhljhbgvjchf' });
+      .put('/user/:id', { id: 123 })
+      .json()
+      .body({ age: 40 })
+      .query({ key: 'value' })
+      .headers({ authorization: 'w6et7iyuhljhbgvjchf' });
 
     assert.deepEqual(req.toOptions(), options);
   });
