@@ -1,14 +1,17 @@
 'use strict';
 
 const assert = require('assert');
-const Request = require('../../lib/request');
+const Request = require('../../lib/Request');
 const fs = require('fs');
+const requestModule = require('request');
 
 describe('Request', function () {
   const postBody = { id: 3, name: 'FooBar', age: 35 };
 
   it('should post new user', function () {
     const request = new Request('http://localhost:3000');
+
+    request.upon(requestModule);
 
     return request
       .post('/user')
@@ -26,6 +29,8 @@ describe('Request', function () {
   it('should get user by name', function () {
     const request = new Request('http://localhost:3000');
 
+    request.upon(requestModule);
+
     return request
       .get('/user')
       .json()
@@ -40,6 +45,8 @@ describe('Request', function () {
   it('should update user info', function () {
     const request = new Request('http://localhost:3000');
 
+    request.upon(requestModule);
+
     return request
       .put('/user/:id', { id: 1 })
       .json()
@@ -53,6 +60,8 @@ describe('Request', function () {
 
   it('should get user by id without path parser', function () {
     const request = new Request('http://localhost:3000');
+
+    request.upon(requestModule);
 
     return request
       .get('/user/3')
@@ -73,6 +82,8 @@ describe('Request', function () {
   it('should delete user by id', function () {
     const request = new Request('http://localhost:3000');
 
+    request.upon(requestModule);
+
     return request
       .delete('/user/:id', { id: 1 })
       .json()
@@ -86,6 +97,8 @@ describe('Request', function () {
 
   it('should return error 404 for user', function () {
     const request = new Request('http://localhost:3000');
+
+    request.upon(requestModule);
 
     return request
       .get('/user/-1')
@@ -117,6 +130,8 @@ describe('Request', function () {
   it('should get image as buffer using request.encoding(null)', function () {
     const request = new Request('http://localhost:3000');
 
+    request.upon(requestModule);
+
     return request
       .get('/image')
       .encoding(null)
@@ -129,6 +144,8 @@ describe('Request', function () {
 
   it('should get image as non-buffer using request.encoding("utf-8")', function () {
     const request = new Request('http://localhost:3000');
+
+    request.upon(requestModule);
 
     return request
       .get('/image')
@@ -145,6 +162,8 @@ describe('Request', function () {
       this.timeout(3000);
       const request = new Request('http://localhost:3000');
 
+      request.upon(requestModule);
+
       return request
         .get('/timeout')
         .timeout(1000)
@@ -158,6 +177,8 @@ describe('Request', function () {
     it('should NOT timeout request', function () {
       this.timeout(3000);
       const request = new Request('http://localhost:3000');
+
+      request.upon(requestModule);
 
       return request
         .get('/timeout')
@@ -173,6 +194,8 @@ describe('Request', function () {
   describe('#jar()', function () {
     it('should send and get cookies', function () {
       const request = new Request('http://localhost:3000');
+
+      request.upon(requestModule);
 
       const j = request.request.jar();
       const cookie = request.request.cookie('key1=value1');
@@ -195,6 +218,8 @@ describe('Request', function () {
     it('should request stream image with exec and callback', function (done) {
       const request = new Request('http://localhost:3000').get('/image');
 
+      request.upon(requestModule);
+
       request.exec(() => done())
         .on('response', (response) => {
           assert.equal(response.headers['content-type'], 'image/png');
@@ -202,8 +227,15 @@ describe('Request', function () {
         .on('error', done);
     });
 
+    it('should fail due to missng request.upon() call', function () {
+      const request = new Request('http://localhost:3000');
+      assert.throws(() => request.exec(), /must be called first with request module/);
+    });
+
     it('should request stream image with exec', function (done) {
       const request = new Request('http://localhost:3000').get('/image');
+
+      request.upon(requestModule);
 
       request.exec()
         .on('response', (response) => {
