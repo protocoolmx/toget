@@ -4,13 +4,12 @@ const jsonServer = require('json-server');
 const fs = require('fs');
 
 before('setup fake server', function (done) {
-
   // Always go back to original db.json
   fs.writeFileSync('test/fixtures/db.json', fs.readFileSync('test/fixtures/db.original.json'));
 
-  let server = jsonServer.create();
-  let router = jsonServer.router('test/fixtures/db.json');
-  let middlewares = jsonServer.defaults();
+  const server = jsonServer.create();
+  const router = jsonServer.router('test/fixtures/db.json');
+  const middlewares = jsonServer.defaults();
 
   server.use(middlewares);
 
@@ -36,7 +35,5 @@ before('setup fake server', function (done) {
   });
 
   server.use(router);
-  server.listen(3000, () => {
-    return done();
-  });
+  server.listen(3000, () => done());
 });

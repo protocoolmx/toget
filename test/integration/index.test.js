@@ -5,12 +5,15 @@ const toget = require('../../index');
 const tutils = require('../fixtures/tutils');
 
 describe('toget', function () {
-
   const request = toget('http://localhost:3000');
   let db;
 
   before('get server db', function () {
-    return tutils.db().then(data => (db = data));
+    return tutils.db().then((data) => {
+      db = data;
+
+      return db;
+    });
   });
 
   it('should get array using default get', function () {
@@ -36,19 +39,19 @@ describe('toget', function () {
   });
 
   it('should get request options', function () {
-    let options = {
+    const options = {
       method: 'PUT',
       json: true,
       body: { age: 40 },
       headers: { authorization: 'w6et7iyuhljhbgvjchf' },
-      url: 'http://localhost:3000/user/123?key=value'
+      url: 'http://localhost:3000/user/123?key=value',
     };
 
-    let req = request()
+    const req = request()
                 .put('/user/:id', { id: 123 })
                 .json()
                 .body({ age: 40 })
-                .query({ key: 'value'})
+                .query({ key: 'value' })
                 .headers({ authorization: 'w6et7iyuhljhbgvjchf' });
 
     assert.deepEqual(req.toOptions(), options);
