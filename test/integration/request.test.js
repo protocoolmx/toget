@@ -227,6 +227,11 @@ describe('Request', function () {
         .on('error', done);
     });
 
+    it('should fail due to missng request.upon() call', function () {
+      const request = new Request('http://localhost:3000');
+      assert.throws(() => request.exec(), /must be called first with request module/);
+    });
+
     it('should request stream image with exec', function (done) {
       const request = new Request('http://localhost:3000').get('/image');
 
